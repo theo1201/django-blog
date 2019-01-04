@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Share a post{% endblock %}
+
+{% block content %}
+    {% if sent %}
+        <h1>E-mail successfully sent</h1>
+        <p>
+                <!-- form.to.value代替了原文的form.to -->
+            "{{ post.title }}" was successfully sent to {{ form.to.value }}.
+        </p>
+    {% else %}
+        <h1>Share "{{ post.title }}" by e-mail</h1>
+        <!-- 我们创建了使用 POST 提交的表单： -->
+        <!-- 默认情况下，Django 检查所有 POST 请求的 CSRFtoken 。因此我们需要为 POST 提交的表单添加csrf_token。 -->
+        <form action="." method="post">
+            {{ form.as_p }}
+             <!-- 模板标签添加一个为了防御 CSRF攻击自动生成的隐藏字段。 -->
+            {% csrf_token %}
+            <input type="submit" value="Send e-mail">
+        </form>
+    {% endif %}
+{% endblock %}

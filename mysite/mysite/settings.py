@@ -123,3 +123,27 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# 配置SMTP服务器
+# 收发邮件
+#  服务器主机。默认为 localhost
+EMAIL_HOST = 'smtp.gmail.com'
+# 服务器的用户名
+EMAIL_HOST_USER = 'your_account@hotmail.com'
+#  SMTP 服务器的密码
+EMAIL_HOST_PASSWORD = 'your_password'
+# 服务器端口。默认为 25
+EMAIL_PORT = 587
+# EMAIL_USE_TLS: 是否使用 TLS 安全连接；
+# EMAIL_USE_SSL: 是否使用隐式 SSL 安全连接。
+# EMAIL_USE_TLS 和 EMAIL_USE_SSL 的默认设置都为False
+# 需要配置其中一个为 True ，但是不能两个都设置为True。一般端口 587 对应 TLS ，端口 465 对应 SSL（加强 TSL ）。
+EMAIL_USE_TLS = True
+
+
+# 163邮箱
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_HOST_USER = 'your_account@163.com'
+EMAIL_HOST_PASSWORD = 'your_auth_code'  #邮箱的授权码而非密码
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
