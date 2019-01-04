@@ -1,0 +1,24 @@
+<!-- 继承 -->
+{% extends "blog/base.html" %}
+
+{% block title %}My Blog{% endblock %}
+
+{% block content %}
+    <h1>My Blog</h1>
+    {% for post in posts %}
+        <h2>
+            <a href="{{ post.get_absolute_url }}">
+                {{ post.title }}
+            </a>
+        </h2>
+        <p class="date">
+            Published {{ post.publish }} by {{ post.author }}
+        </p>
+        {{ post.body|truncatewords:30|linebreaks }}
+    {% endfor %}
+
+    <!-- {% include "blog/pagination.html" with page=posts %} -->
+    <!-- 为了保证分页正常工作，我们需要向模板传入正确的 page 对象，Django ListView 中 page 对象为 page_obj ，
+        因此，我们需要修改 templates/blog/post/list.html ，将context最后一句更改为： -->
+    {% include "blog/pagination.html" with page=page_obj %}
+{% endblock %}
