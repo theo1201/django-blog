@@ -5,7 +5,7 @@ from django.contrib import admin
 
 # 让我们将 blog 模型添加到 admin网站。向 blog 应用的 admin.py 文件写入以下代码：
 
-from .models import Post
+from .models import Post,Comment
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -17,7 +17,11 @@ class PostAdmin(admin.ModelAdmin):
     date_hierarchy = 'publish'
     ordering = ['status', 'publish']
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'post', 'created', 'active')
+    list_filter = ('active', 'created', 'updated')
+    search_fields = ('name', 'email', 'body')
 
 
 admin.site.register(Post)
-
+admin.site.register(Comment, CommentAdmin)

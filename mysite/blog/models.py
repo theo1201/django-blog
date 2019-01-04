@@ -54,3 +54,23 @@ class Post(models.Model):
                              self.publish.strftime('%m'),
                              self.publish.strftime('%d'),
                              self.slug])            
+
+# 评论系统
+class Comment(models.Model):
+    # Comment 中的这个多对一关系表示评论必须针对某篇文章但是一篇文章可以包含多条评论。post  中的 related_name 属性用于通过文章查看评论，
+    # 定义完成后我们可以通过 comment.post 获得文章，通过 post.comments.all() 获得文章的所有评论。
+    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
+
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    #  active 字段来屏蔽某些评论
+    active = models.BooleanField(default=True)
+    
+    class Meta:
+        ordering = ('created',)
+
+    def __str__(self):
+        return 'Comment by {} on {}'.format(self.name, self.post)
